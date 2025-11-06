@@ -1,4 +1,5 @@
 [abi_symbol_list]
+  android_vh_pcpu_rwsem_handler
   address_space_init_once
   bio_add_page
   bio_associate_blkg
@@ -93,6 +94,11 @@
   radix_tree_replace_slot
   _raw_write_trylock
   reciprocal_value
+  slim_for_app
+  task_is_scx
+  non_ext_task
+  __scx_ops_enabled
+  scx_get_md_info
   register_tcf_proto_ops
   regulator_map_voltage_linear_range
   remove_proc_subtree
@@ -201,10 +207,16 @@
   __traceiter_android_vh_adjust_kvmalloc_flags
   __traceiter_android_vh_alloc_pages_slowpath
   __traceiter_android_vh_sched_stat_runtime_rt
+  __traceiter_android_vh_tick_nohz_idle_stop_tick
+  __traceiter_android_vh_hmbird_update_load
+  __traceiter_android_vh_hmbird_init_task
+  __traceiter_android_vh_hmbird_update_load_enable
+  __traceiter_android_vh_get_util
   __traceiter_android_vh_shrink_node_memcgs
   __traceiter_android_vh_sync_txn_recvd
   __traceiter_android_vh_set_tsk_need_resched_lazy
   __traceiter_android_vh_task_blocks_on_rtmutex
+  __traceiter_android_vh_task_ux_op
   __traceiter_block_bio_queue
   __traceiter_block_getrq
   __traceiter_block_rq_complete
@@ -223,8 +235,8 @@
   __traceiter_sched_stat_wait
   __traceiter_sched_waking
   __traceiter_task_rename
-  __traceiter_android_vh_test_clear_look_around_ref
   __traceiter_android_vh_tune_swappiness
+  __traceiter_android_vh_test_clear_look_around_ref
   __traceiter_android_vh_alloc_pages_reclaim_bypass
   __traceiter_android_vh_free_unref_page_bypass
   __traceiter_android_vh_kvmalloc_node_use_vmalloc
@@ -240,6 +252,12 @@
   __traceiter_android_vh_binder_free_buf
   __traceiter_android_vh_binder_buffer_release
   __traceiter_android_vh_copy_process
+  __traceiter_android_vh_scx_select_cpu_dfl
+  __traceiter_android_vh_scx_update_task_scale_time
+  __traceiter_android_vh_check_preempt_curr_scx
+  __traceiter_android_vh_task_fits_cpu_scx
+  __traceiter_android_vh_scx_cpu_exclusive
+  __traceiter_android_vh_scx_consume_dsq_allowed
   __tracepoint_android_rvh_post_init_entity_util_avg
   __tracepoint_android_rvh_rtmutex_force_update
   __tracepoint_android_vh_account_process_tick_gran
@@ -314,10 +332,17 @@
   __tracepoint_android_vh_adjust_kvmalloc_flags
   __tracepoint_android_vh_alloc_pages_slowpath
   __tracepoint_android_vh_sched_stat_runtime_rt
+  __tracepoint_android_vh_tick_nohz_idle_stop_tick
+  __tracepoint_android_vh_hmbird_update_load
+  __tracepoint_android_vh_hmbird_init_task
+  __tracepoint_android_vh_hmbird_update_load_enable
+  __tracepoint_android_vh_get_util
   __tracepoint_android_vh_shrink_node_memcgs
   __tracepoint_android_vh_sync_txn_recvd
+  __tracepoint_android_vh_tune_swappiness
   __tracepoint_android_vh_set_tsk_need_resched_lazy
   __tracepoint_android_vh_task_blocks_on_rtmutex
+  __tracepoint_android_vh_task_ux_op
   __tracepoint_android_vh_test_clear_look_around_ref
   __tracepoint_android_vh_tune_swappiness
   __tracepoint_android_vh_alloc_pages_reclaim_bypass
@@ -353,6 +378,12 @@
   __tracepoint_android_vh_binder_free_buf
   __tracepoint_android_vh_binder_buffer_release
   __tracepoint_android_vh_copy_process
+  __tracepoint_android_vh_scx_select_cpu_dfl
+  __tracepoint_android_vh_scx_update_task_scale_time
+  __tracepoint_android_vh_check_preempt_curr_scx
+  __tracepoint_android_vh_task_fits_cpu_scx
+  __tracepoint_android_vh_scx_cpu_exclusive
+  __tracepoint_android_vh_scx_consume_dsq_allowed
   __trace_puts
   try_to_free_mem_cgroup_pages
   typec_mux_get_drvdata
@@ -364,6 +395,18 @@
   wakeup_source_remove
   wake_up_state
   wq_worker_comm
+  __traceiter_android_vh_meminfo_proc_show
+  __tracepoint_android_vh_meminfo_proc_show
+  __traceiter_android_vh_tune_scan_type
+  __tracepoint_android_vh_tune_scan_type
   xt_register_match
   xt_unregister_match
   zero_pfn
+  scx_sched_rq_stats
+  scx_irq_work_lastq_ws
+  ext_module_loaded
+  hmbird_dir
+  iso_masks
+  __traceiter_android_vh_init_adjust_zone_wmark
+  __tracepoint_android_vh_init_adjust_zone_wmark
+  schedtune_task_boost
