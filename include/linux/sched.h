@@ -72,9 +72,6 @@ struct signal_struct;
 struct task_delay_info;
 struct task_group;
 
-#ifdef CONFIG_HMBIRD_SCHED
-#include <linux/sched/ext.h>
-#endif
 
 /*
  * Task state bitmask. NOTE! These bits are also
@@ -1551,11 +1548,8 @@ struct task_struct {
 	union rv_task_monitor		rv[RV_PER_TASK_MONITORS];
 #endif
 	ANDROID_KABI_USE(1, unsigned int saved_state);
-#ifdef CONFIG_HMBIRD_SCHED
-	ANDROID_KABI_USE(2, struct sched_ext_entity	*scx;);
-#else
 	ANDROID_KABI_RESERVE(2);
-#endif
+
 	ANDROID_KABI_RESERVE(3);
 	ANDROID_KABI_RESERVE(4);
 	ANDROID_KABI_RESERVE(5);
@@ -1934,97 +1928,6 @@ static inline int task_nice(const struct task_struct *p)
 	return PRIO_TO_NICE((p)->static_prio);
 }
 
-#ifdef CONFIG_HMBIRD_SCHED
-#define SCHED_PROP_DEADLINE_MASK (0xFF) /* deadline for ext sched class */
-#define SCHED_PROP_DEADLINE_LEVEL0 (0)
-#define SCHED_PROP_DEADLINE_LEVEL1 (1)
-#define SCHED_PROP_DEADLINE_LEVEL2 (2)
-#define SCHED_PROP_DEADLINE_LEVEL3 (3)
-#define SCHED_PROP_DEADLINE_LEVEL4 (4)
-#define SCHED_PROP_DEADLINE_LEVEL5 (5)
-#define SCHED_PROP_DEADLINE_LEVEL6 (6)
-#define SCHED_PROP_DEADLINE_LEVEL7 (7)
-#define SCHED_PROP_DEADLINE_LEVEL8 (8)
-#define SCHED_PROP_DEADLINE_LEVEL9 (9)
-#define SCHED_EXT_DSQ_TYPE_PERIOD		(0) /* period dsq of scx */
-#define SCHED_EXT_DSQ_TYPE_NON_PERIOD	(1) /* non period dsq of scx */
-
-#define	TOP_TASK_BITS_MASK	(0xFF)
-#define TOP_TASK_BITS		(8)
-
-static inline bool task_is_top_task(struct task_struct *p)
-{
-	return (p->scx->top_task_prop & TOP_TASK_BITS_MASK);
-}
-
-static inline int get_top_task_prop(struct task_struct *p)
-{
-	return p->scx->top_task_prop;
-}
-
-static inline int set_top_task_prop(struct task_struct *p, u64 set, u64 clear)
-{
-	if (set)
-		p->scx->top_task_prop |= set;
-	if (clear)
-		p->scx->top_task_prop &= ~clear;
-	return 0;
-}
-
-static inline void reset_top_task_prop(struct task_struct *p)
-{
-	p->scx->top_task_prop = 0;
-}
-
-static inline int sched_set_sched_prop(struct task_struct *p, unsigned long sp)
-{
-	if (p && p->scx)
-		p->scx->sched_prop = sp;
-	return 0;
-}
-
-static inline unsigned long sched_get_sched_prop(struct task_struct *p)
-{
-	if (p && p->scx)
-		return p->scx->sched_prop;
-	else
-		return 0;
-}
-
-static inline void sched_set_dsq_sync_ux(struct task_struct *p, bool sync)
-{
-	if (p && p->scx) {
-		p->scx->dsq_sync_ux = sync;
-	}
-}
-
-static inline int sched_get_dsq_sync_ux(struct task_struct *p)
-{
-	if (p && p->scx) {
-		return p->scx->dsq_sync_ux;
-	} else {
-		return 0;
-	}
-}
-
-static inline void sched_set_dsq_id(struct task_struct *p, unsigned long dsq)
-{
-	unsigned long new_dsq;
-
-	if (p && p->scx) {
-		new_dsq = (p->scx->sched_prop & ~SCHED_PROP_DEADLINE_MASK) | dsq;
-		p->scx->sched_prop = new_dsq;
-	}
-}
-
-static inline unsigned long sched_get_dsq_id(struct task_struct *p)
-{
-	if (p && p->scx)
-		return (p->scx->sched_prop & SCHED_PROP_DEADLINE_MASK);
-	else
-		return 0;
-}
-#endif
 
 extern int can_nice(const struct task_struct *p, const int nice);
 extern int task_curr(const struct task_struct *p);

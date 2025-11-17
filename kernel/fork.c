@@ -23,9 +23,6 @@
 #include <linux/sched/task.h>
 #include <linux/sched/task_stack.h>
 #include <linux/sched/cputime.h>
-#ifdef CONFIG_HMBIRD_SCHED
-#include <linux/sched/ext.h>
-#endif
 #include <linux/seq_file.h>
 #include <linux/rtmutex.h>
 #include <linux/init.h>
@@ -962,9 +959,6 @@ void __put_task_struct(struct task_struct *tsk)
 	WARN_ON(!tsk->exit_state);
 	WARN_ON(refcount_read(&tsk->usage));
 	WARN_ON(tsk == current);
-#ifdef CONFIG_HMBIRD_SCHED
-	sched_ext_free(tsk);
-#endif
 	io_uring_free(tsk);
 	cgroup_free(tsk);
 	task_numa_free(tsk, true);
@@ -2394,11 +2388,8 @@ static __latent_entropy struct task_struct *copy_process(
 
 	retval = perf_event_init_task(p, clone_flags);
 	if (retval)
-#ifdef CONFIG_HMBIRD_SCHED
-		goto bad_fork_sched_cancel_fork;
-#else
 		goto bad_fork_cleanup_policy;
-#endif
+
 	retval = audit_alloc(p);
 	if (retval)
 		goto bad_fork_cleanup_perf;
@@ -2709,10 +2700,6 @@ bad_fork_cleanup_audit:
 	audit_free(p);
 bad_fork_cleanup_perf:
 	perf_event_free_task(p);
-#ifdef CONFIG_HMBIRD_SCHED
-bad_fork_sched_cancel_fork:
-	sched_cancel_fork(p);
-#endif
 bad_fork_cleanup_policy:
 	lockdep_free_task(p);
 #ifdef CONFIG_NUMA

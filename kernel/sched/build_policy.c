@@ -28,10 +28,6 @@
 #include <linux/suspend.h>
 #include <linux/tsacct_kern.h>
 #include <linux/vtime.h>
-#ifdef CONFIG_HMBIRD_SCHED
-#include <linux/sysrq.h>
-#include <linux/percpu-rwsem.h>
-#endif
 
 #include <uapi/linux/sched/types.h>
 
@@ -55,10 +51,4 @@
 
 #include "cputime.c"
 #include "deadline.c"
-
-#include "hmbird_export.c"
-#ifdef CONFIG_HMBIRD_SCHED
-#include "slim_sysctl.c"
-#include "ext.c"
-#endif
 

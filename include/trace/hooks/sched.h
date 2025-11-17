@@ -392,23 +392,6 @@ DECLARE_HOOK(android_vh_tick_nohz_idle_stop_tick,
 	TP_PROTO(void *unused),
 	TP_ARGS(unused));
 
-DECLARE_HOOK(android_vh_hmbird_update_load,
-	TP_PROTO(struct task_struct *p, struct rq *rq, int event, u64 wallclock),
-	TP_ARGS(p, rq, event, wallclock));
-
-DECLARE_HOOK(android_vh_hmbird_init_task,
-	TP_PROTO(struct task_struct *p),
-	TP_ARGS(p));
-
-DECLARE_HOOK(android_vh_hmbird_update_load_enable,
-	TP_PROTO(bool enable),
-	TP_ARGS(enable));
-
-/* get task or cpu's util based on the provided parameters. */
-DECLARE_HOOK(android_vh_get_util,
-	TP_PROTO(int cpu, struct task_struct *p, u64 *util),
-	TP_ARGS(cpu, p, util));
-
 DECLARE_HOOK(android_vh_account_process_tick_gran,
 	TP_PROTO(int user_tick, int *ticks),
 	TP_ARGS(user_tick, ticks));
@@ -487,29 +470,6 @@ DECLARE_HOOK(android_vh_task_ux_op,
 	TP_PROTO(struct task_struct *tsk, int op, void *buf),
 	TP_ARGS(tsk, op, buf));
 
-DECLARE_HOOK(android_vh_scx_select_cpu_dfl,
-	TP_PROTO(struct task_struct *p, s32 *cpu),
-	TP_ARGS(p, cpu));
-
-DECLARE_HOOK(android_vh_scx_update_task_scale_time,
-	TP_PROTO(struct task_struct *p, u16 *demand_scale),
-	TP_ARGS(p, demand_scale));
-
-DECLARE_HOOK(android_vh_check_preempt_curr_scx,
-	TP_PROTO(struct rq *rq, struct task_struct *p, int wake_flags, int *check_result),
-	TP_ARGS(rq, p, wake_flags, check_result));
-
-DECLARE_HOOK(android_vh_task_fits_cpu_scx,
-	TP_PROTO(struct task_struct *p, int cpu, int *fitable),
-	TP_ARGS(p, cpu, fitable));
-
-DECLARE_HOOK(android_vh_scx_cpu_exclusive,
-	TP_PROTO(int cpu, int *exclusive),
-	TP_ARGS(cpu, exclusive));
-
-DECLARE_HOOK(android_vh_scx_consume_dsq_allowed,
-	TP_PROTO(struct rq *rq, struct rq_flags *rf, int dsq_type, int *allowed),
-	TP_ARGS(rq, rf, dsq_type, allowed));
 
 #endif /* _TRACE_HOOK_SCHED_H */
 /* This part must be outside protection */
